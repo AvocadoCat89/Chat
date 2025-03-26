@@ -1,0 +1,75 @@
+﻿<Window x:Class="Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="Чат клиент" Height="450" Width="800"
+        Loaded="MainWindow_Loaded">
+    <Window.Resources>
+        <local:SystemMessageConverter x:Key="SystemMessageConverter"/>
+        <local:MessageBackgroundConverter x:Key="MessageBackgroundConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Панель подключения -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+            <TextBox x:Name="UsernameTextBox" Width="150" Margin="5" 
+                     Text="Гость" ToolTip="Введите ваше имя"/>
+            <TextBox x:Name="ServerIpTextBox" Width="100" Margin="5" 
+                     Text="127.0.0.1" ToolTip="IP сервера"/>
+            <TextBox x:Name="ServerPortTextBox" Width="50" Margin="5" 
+                     Text="11000" ToolTip="Порт сервера"/>
+            <Button x:Name="ConnectButton" Content="Подключиться" Margin="5" 
+                    Width="100" Click="ConnectButton_Click"/>
+            <Button x:Name="DisconnectButton" Content="Отключиться" Margin="5" 
+                    Width="100" Click="DisconnectButton_Click" IsEnabled="False"/>
+        </StackPanel>
+
+        <!-- Окно чата -->
+        <ListView x:Name="ChatMessagesListView" Grid.Row="1" Margin="5">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontWeight="Bold" 
+                                   Text="{Binding Sender}"
+                                   Foreground="{Binding IsSystem, Converter={StaticResource SystemMessageConverter}}"/>
+                        <TextBlock Text="{Binding Text}" 
+                                   Background="{Binding IsOwn, Converter={StaticResource MessageBackgroundConverter}}"
+                                   Padding="5"/>
+                        <TextBlock FontSize="10" Foreground="Gray" 
+                                   Text="{Binding Timestamp, StringFormat='{}{0:HH:mm:ss}'}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Панель отправки сообщений -->
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="MessageTextBox" Grid.Column="0" Margin="5" 
+                     KeyDown="MessageTextBox_KeyDown"/>
+            <Button x:Name="SendButton" Grid.Column="1" Content="Отправить" Margin="5" 
+                    Width="100" Click="SendButton_Click" IsEnabled="False"/>
+        </Grid>
+
+        <!-- Строка состояния -->
+        <StatusBar Grid.Row="3">
+            <StatusBarItem>
+                <Ellipse x:Name="ConnectionIndicator" Width="10" Height="10" Fill="Red"/>
+            </StatusBarItem>
+            <StatusBarItem Content="{Binding ConnectionStatus}"/>
+        </StatusBar>
+    </Grid>
+</Window>
