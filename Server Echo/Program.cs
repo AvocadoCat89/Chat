@@ -42,6 +42,7 @@ namespace Server_Echo
             {
                 Console.WriteLine($"Клиент подключен: {handler.RemoteEndPoint}");
                 byte[] buffer = new byte[1024];
+                bool debugMode = false;
 
                 while (true)
                 {
@@ -56,12 +57,24 @@ namespace Server_Echo
                         Console.WriteLine("Клиент отключился");
                         break;
                     }
+                    switch (request) 
+                    {
+                        case "<DebugOn>":
+                            debugMode = true;
+                            break;
+                        case "<DebugOff>":
+                            debugMode = false;
+                            break;
+                    }
 
-                    // Добавляем задержку перед ответом 
-                    Thread.Sleep(500);
+                    if (debugMode)
+                    {
+                        // Добавляем задержку перед ответом 
+                        Thread.Sleep(500);
 
-                    string response = $"Ответ сервера: {request.Length} символов";
-                    handler.Send(Encoding.UTF8.GetBytes(response));
+                        string response = $"Ответ сервера: {request.Length} символов";
+                        handler.Send(Encoding.UTF8.GetBytes(response));
+                    }
                 }
             }
             catch (Exception ex)

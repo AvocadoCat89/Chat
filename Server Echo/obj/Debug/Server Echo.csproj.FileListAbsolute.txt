@@ -5,3 +5,10 @@ C:\Users\hoco1\source\repos\Server Echo\Server Echo\bin\Debug\Server Echo.exe
 C:\Users\hoco1\source\repos\Server Echo\Server Echo\bin\Debug\Server Echo.pdb
 C:\Users\hoco1\source\repos\Server Echo\Server Echo\obj\Debug\Server Echo.exe
 C:\Users\hoco1\source\repos\Server Echo\Server Echo\obj\Debug\Server Echo.pdb
+C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\bin\Debug\Server Echo.exe.config
+C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\bin\Debug\Server Echo.exe
+C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\bin\Debug\Server Echo.pdb
+C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.csproj.AssemblyReference.cache
+C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.csproj.CoreCompileInputs.cache
+C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.exe
+C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.pdb

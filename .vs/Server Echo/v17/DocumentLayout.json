@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\hoco1\\Documents\\GitHub\\Chat\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B131BECC-C347-4445-BC3A-F3E8CB32C676}|Server Echo\\Server Echo.csproj|c:\\users\\hoco1\\documents\\github\\chat\\server echo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B131BECC-C347-4445-BC3A-F3E8CB32C676}|Server Echo\\Server Echo.csproj|solutionrelative:server echo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D83FE77-7CB5-4DED-8759-D752D9A0AD70}|Client\\Client\\Client.csproj|c:\\users\\hoco1\\documents\\github\\chat\\client\\client\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0D83FE77-7CB5-4DED-8759-D752D9A0AD70}|Client\\Client\\Client.csproj|solutionrelative:client\\client\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D83FE77-7CB5-4DED-8759-D752D9A0AD70}|Client\\Client\\Client.csproj|c:\\users\\hoco1\\documents\\github\\chat\\client\\client\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{0D83FE77-7CB5-4DED-8759-D752D9A0AD70}|Client\\Client\\Client.csproj|solutionrelative:client\\client\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\hoco1\\Documents\\GitHub\\Chat\\Client\\Client\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Client\\Client\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\hoco1\\Documents\\GitHub\\Chat\\Client\\Client\\MainWindow.xaml",
+              "RelativeToolTip": "Client\\Client\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-27T07:50:34.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\hoco1\\Documents\\GitHub\\Chat\\Server Echo\\Program.cs",
+              "RelativeDocumentMoniker": "Server Echo\\Program.cs",
+              "ToolTip": "C:\\Users\\hoco1\\Documents\\GitHub\\Chat\\Server Echo\\Program.cs",
+              "RelativeToolTip": "Server Echo\\Program.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAowEIAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T07:39:18.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\hoco1\\Documents\\GitHub\\Chat\\Client\\Client\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Client\\Client\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\hoco1\\Documents\\GitHub\\Chat\\Client\\Client\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Client\\Client\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T07:33:27.064Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

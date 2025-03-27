@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Data;
 using System.Globalization;
 using System.Threading;
+using System.Windows.Documents;
+using System.Security.Cryptography;
 
 namespace Client
 {
@@ -16,6 +18,7 @@ namespace Client
     {
         private Socket _clientSocket;
         private bool _isConnected;
+   
         private string _connectionStatus = "Отключено";
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -47,6 +50,7 @@ namespace Client
 
         private void ConnectToServer()
         {
+            
             if (_isConnected) return;
 
             try
@@ -88,6 +92,7 @@ namespace Client
 
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesReceived);
                     Dispatcher.Invoke(() => ProcessMessage(message)); // put a ui refresh in line to ui-pool
+          
                 }
             }
             catch (Exception ex)
@@ -108,9 +113,12 @@ namespace Client
                 Disconnect();
                 return;
             }
+             
+            
             AddMessage("Сервер", message);
         }
 
+      
         private void Disconnect()
         {
             try
