@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -8,11 +9,13 @@ namespace Server_Echo
 {
     class Program
     {
+        private static readonly List<Socket> Clients = new List<Socket>();
         static void Main()
         {
             const int port = 11000;
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, port);
             Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
 
             try
             {
@@ -23,6 +26,8 @@ namespace Server_Echo
                 while (true)
                 {
                     Socket handler = listener.Accept();
+                    Clients.Add(handler);
+                    
                     // Open a Multiplying, one flow for one user
                     ThreadPool.QueueUserWorkItem(HandleClient, handler);
                 }
@@ -35,7 +40,9 @@ namespace Server_Echo
 
         static void HandleClient( object state) // object `cause ThreadPool takes only object 
         {
-            Socket handler = (Socket)state; ;
+            Socket handler = (Socket)state;
+            Clients.Add(handler);
+
 
 
             try
@@ -43,6 +50,7 @@ namespace Server_Echo
                 Console.WriteLine($"Клиент подключен: {handler.RemoteEndPoint}");
                 byte[] buffer = new byte[1024];
                 bool debugMode = false;
+                bool isMine = false;
 
                 while (true)
                 {
@@ -52,20 +60,25 @@ namespace Server_Echo
                     string request = Encoding.UTF8.GetString(buffer, 0, received);
                     Console.WriteLine($"Получено: {request}");
 
-                    if (request.Contains("<TheEnd>"))
+                    if (request.Contains("<TheEnd>/sender/"))
                     {
                         Console.WriteLine("Клиент отключился");
                         break;
                     }
-                    switch (request) 
+                    switch (request)
                     {
-                        case "<DebugOn>":
+                        case "<DebugOn>/sender/":
                             debugMode = true;
                             break;
-                        case "<DebugOff>":
+                        case "<DebugOff>/sender/":
                             debugMode = false;
                             break;
                     }
+
+                    if (request.Contains("/sender/"))
+                        isMine = true;
+
+
 
                     if (debugMode)
                     {
@@ -74,6 +87,13 @@ namespace Server_Echo
 
                         string response = $"Ответ сервера: {request.Length} символов";
                         handler.Send(Encoding.UTF8.GetBytes(response));
+                    }
+                     foreach (Socket clients in Clients)
+                    {
+                        if (!isMine)
+                        {
+                            clients.Send(buffer);
+                        }
                     }
                 }
             }

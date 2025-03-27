@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Threading;
 using System.Windows.Documents;
 using System.Security.Cryptography;
+using System.Runtime.Remoting.Channels;
 
 namespace Client
 {
@@ -161,7 +162,9 @@ namespace Client
 
             try
             {
-                byte[] bytes = Encoding.UTF8.GetBytes(message);
+                string senderTag = "/sender/";
+                byte[] bytes = Encoding.UTF8.GetBytes(message + senderTag);
+
                 _clientSocket.Send(bytes);
                 AddMessage("Вы", message, true);
                 MessageTextBox.Clear();

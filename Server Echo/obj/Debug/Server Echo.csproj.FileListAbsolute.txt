@@ -12,3 +12,10 @@ C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.csproj.As
 C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.csproj.CoreCompileInputs.cache
 C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.exe
 C:\Users\hoco1\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.pdb
+C:\Users\Влад\Documents\GitHub\Chat\Server Echo\bin\Debug\Server Echo.exe.config
+C:\Users\Влад\Documents\GitHub\Chat\Server Echo\bin\Debug\Server Echo.exe
+C:\Users\Влад\Documents\GitHub\Chat\Server Echo\bin\Debug\Server Echo.pdb
+C:\Users\Влад\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.csproj.AssemblyReference.cache
+C:\Users\Влад\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.csproj.CoreCompileInputs.cache
+C:\Users\Влад\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.exe
+C:\Users\Влад\Documents\GitHub\Chat\Server Echo\obj\Debug\Server Echo.pdb
