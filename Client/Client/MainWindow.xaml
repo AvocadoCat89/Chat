@@ -25,7 +25,7 @@
             <TextBox x:Name="UsernameTextBox" Width="150" Margin="5" 
                      Text="Гость" ToolTip="Введите ваше имя"/>
             <TextBox x:Name="ServerIpTextBox" Width="100" Margin="5" 
-                     Text="192.168.0.102" ToolTip="IP сервера"/>
+                     Text="172.22.1.89" ToolTip="IP сервера"/>
             <TextBox x:Name="ServerPortTextBox" Width="50" Margin="5" 
                      Text="11000" ToolTip="Порт сервера"/>
             <Button x:Name="ConnectButton" Content="Подключиться" Margin="5" 

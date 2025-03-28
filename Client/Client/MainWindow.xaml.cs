@@ -15,11 +15,11 @@ using System.Runtime.Remoting.Channels;
 
 namespace Client
 {
-    public partial class MainWindow : Window, INotifyPropertyChanged 
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private Socket _clientSocket;
         private bool _isConnected;
-   
+
         private string _connectionStatus = "Отключено";
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,7 +51,7 @@ namespace Client
 
         private void ConnectToServer()
         {
-            
+
             if (_isConnected) return;
 
             try
@@ -93,7 +93,7 @@ namespace Client
 
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesReceived);
                     Dispatcher.Invoke(() => ProcessMessage(message)); // put a ui refresh in line to ui-pool
-          
+
                 }
             }
             catch (Exception ex)
@@ -114,12 +114,12 @@ namespace Client
                 Disconnect();
                 return;
             }
-             
-            
+
+
             AddMessage("Сервер", message);
         }
 
-      
+
         private void Disconnect()
         {
             try
@@ -162,8 +162,8 @@ namespace Client
 
             try
             {
-                string senderTag = "/sender/";
-                byte[] bytes = Encoding.UTF8.GetBytes(message + senderTag);
+
+                byte[] bytes = Encoding.UTF8.GetBytes(message);
 
                 _clientSocket.Send(bytes);
                 AddMessage("Вы", message, true);
@@ -238,7 +238,7 @@ namespace Client
         public bool IsOwn { get; set; }
         public bool IsSystem { get; set; }
     }
-     // дальше управление стилями 
+    // дальше управление стилями 
     public class SystemMessageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

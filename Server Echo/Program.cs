@@ -10,12 +10,13 @@ namespace Server_Echo
     class Program
     {
         private static readonly List<Socket> Clients = new List<Socket>();
+        private static readonly object ClientsLock = new object();
+
         static void Main()
         {
             const int port = 11000;
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, port);
             Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
 
             try
             {
@@ -26,9 +27,11 @@ namespace Server_Echo
                 while (true)
                 {
                     Socket handler = listener.Accept();
-                    Clients.Add(handler);
-                    
-                    // Open a Multiplying, one flow for one user
+                    lock (ClientsLock)
+                    {
+                        Clients.Add(handler);
+                    }
+
                     ThreadPool.QueueUserWorkItem(HandleClient, handler);
                 }
             }
@@ -38,19 +41,16 @@ namespace Server_Echo
             }
         }
 
-        static void HandleClient( object state) // object `cause ThreadPool takes only object 
+        static void HandleClient(object state)
         {
             Socket handler = (Socket)state;
-            Clients.Add(handler);
-
-
+            string clientEndpoint = handler.RemoteEndPoint.ToString();
+            bool debugMode = false;
 
             try
             {
-                Console.WriteLine($"Клиент подключен: {handler.RemoteEndPoint}");
+                Console.WriteLine($"Клиент подключен: {clientEndpoint}");
                 byte[] buffer = new byte[1024];
-                bool debugMode = false;
-                bool isMine = false;
 
                 while (true)
                 {
@@ -58,53 +58,71 @@ namespace Server_Echo
                     if (received == 0) break;
 
                     string request = Encoding.UTF8.GetString(buffer, 0, received);
-                    Console.WriteLine($"Получено: {request}");
+                    Console.WriteLine($"Получено от {clientEndpoint}: {request}");
 
-                    if (request.Contains("<TheEnd>/sender/"))
+                    if (request.Contains("<TheEnd>"))
                     {
-                        Console.WriteLine("Клиент отключился");
+                        Console.WriteLine($"Клиент {clientEndpoint} отключился");
                         break;
                     }
+
                     switch (request)
                     {
-                        case "<DebugOn>/sender/":
+                        case "<DebugOn>":
                             debugMode = true;
-                            break;
-                        case "<DebugOff>/sender/":
+                            continue;
+                        case "<DebugOff>":
                             debugMode = false;
-                            break;
+                            continue;
                     }
-
-                    if (request.Contains("/sender/"))
-                        isMine = true;
-
-
 
                     if (debugMode)
                     {
-                        // Добавляем задержку перед ответом 
                         Thread.Sleep(500);
-
                         string response = $"Ответ сервера: {request.Length} символов";
                         handler.Send(Encoding.UTF8.GetBytes(response));
+                        continue;
                     }
-                     foreach (Socket clients in Clients)
+
+                    // Рассылка сообщения всем клиентам, кроме отправителя
+                    lock (ClientsLock)
                     {
-                        if (!isMine)
+                        foreach (Socket client in Clients)
                         {
-                            clients.Send(buffer);
+                            if (client != handler && client.Connected)
+                            {
+                                try
+                                {
+                                    client.Send(buffer, 0, received, SocketFlags.None);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"Ошибка отправки клиенту {client.RemoteEndPoint}: {ex.Message}");
+                                }
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка: {ex.Message}");
+                Console.WriteLine($"Ошибка с клиентом {clientEndpoint}: {ex.Message}");
             }
             finally
             {
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
+                lock (ClientsLock)
+                {
+                    Clients.Remove(handler);
+                }
+
+                try
+                {
+                    handler.Shutdown(SocketShutdown.Both);
+                    handler.Close();
+                }
+                catch { }
+
+                Console.WriteLine($"Клиент {clientEndpoint} отключен и удален из списка");
             }
         }
     }
