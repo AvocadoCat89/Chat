@@ -46,6 +46,7 @@ namespace Server_Echo
             Socket handler = (Socket)state;
             string clientEndpoint = handler.RemoteEndPoint.ToString();
             bool debugMode = false;
+            bool echoMode = false;
 
             try
             {
@@ -74,6 +75,12 @@ namespace Server_Echo
                         case "<DebugOff>":
                             debugMode = false;
                             continue;
+                        case "<EchoOn>":
+                            echoMode = true;
+                            continue;
+                        case "<EchoOff>":
+                            echoMode = false;
+                            continue;
                     }
 
                     if (debugMode)
@@ -83,7 +90,13 @@ namespace Server_Echo
                         handler.Send(Encoding.UTF8.GetBytes(response));
                         continue;
                     }
-
+                    if (echoMode)
+                    {
+                        Thread.Sleep(500);
+                        string response = $"Ответ сервера: {request}";
+                        handler.Send(Encoding.UTF8.GetBytes(response));
+                        continue;
+                    }
                     // Рассылка сообщения всем клиентам, кроме отправителя
                     lock (ClientsLock)
                     {
